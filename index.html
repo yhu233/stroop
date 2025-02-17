@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Experiment</title>
+    <script src="https://unpkg.com/jspsych@7.3.4"></script> 
+    <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script> 
+    <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script> 
+    <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe@0.4"></script>  
+    <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+  </head>
+  
+  <body></body>
+  
+  <script>
+
+    const jsPsych = initJsPsych();
+
+    var trial = {
+      timeline: [
+        {
+          type: jsPsychHtmlButtonResponse, 
+          stimulus: TimelineVariable("text"),
+          choices: ['Match', "Not"], 
+          prompt: "<p> Does the word match with its color? </p>"
+        }
+      ],
+      timeline_variables: [
+        { text: '<p style="color:red">red</p>' },
+        { text: '<p style="color:red">green</p>' },
+        { text: '<p style="color:red">blue</p>' },
+        { text: '<p style="color:blue">blue</p>' },
+        { text: '<p style="color:blue">red</p>' },
+        { text: '<p style="color:blue">green</p>' },
+        { text: '<p style="color:green">green</p>' },
+        { text: '<p style="color:green">blue</p>' },
+        { text: '<p style="color:green">red</p>' }
+      ],
+      sample: {
+        type: "fixed_repetitions",
+        size: 2
+      }
+    };
+
+    const save_data_trial = {
+      type: jsPsychPipe,
+      action: "save",
+      experiment_id: "A2oxNfVFodPV", 
+      filename: "test_data.csv",
+      data_string: ()=>jsPsych.data.get().csv(),
+      on_finish: function(data){alert(data.result.message)}
+    };
+
+    const end_trial = {
+      type: jsPsychHtmlKeyboardResponse,
+      stimulus: 'Thi is it. Thank you.'
+    };
+
+    jsPsych.run([trial, save_data_trial, end_trial]);
+
+  </script>
+</html>
+
