@@ -15,6 +15,11 @@
 
     const jsPsych = initJsPsych();
 
+    const intro = {
+      type : jsPsychHtmlKeyboardResponse,
+      stimulus: "<p> In this experiement, please press the button that describes the relationship of the text and its color as fast as you can.</p>"
+    };
+
     var trial = {
       timeline: [
         {
@@ -55,7 +60,7 @@
       stimulus: 'Thi is it. Thank you.'
     };
 
-    jsPsych.run([trial, save_data_trial, end_trial]);
+    jsPsych.run([intro, trial, save_data_trial, end_trial]);
 
   </script>
 </html>
